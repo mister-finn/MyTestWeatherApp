@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_weather_icons_01.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/activity_main.xml" value="0.3296875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/forecast_item.xml" value="0.3296875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/fragment_forecast.xml" value="0.3296875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/fragment_today_weather.xml" value="0.22" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
       </map>
     </option>
   </component>
