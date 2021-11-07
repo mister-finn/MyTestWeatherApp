@@ -5,6 +5,7 @@ import com.misterfinn.mytestweatherapp.api.ApiFactory
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 import com.misterfinn.mytestweatherapp.utils.getDayOfWeek
 import com.misterfinn.mytestweatherapp.utils.getTime
+import com.misterfinn.mytestweatherapp.utils.makeFirstCharUpper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -28,7 +29,7 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                     forecast.isDay = isDay == "d"
                     forecast.imageId = it1.weatherList?.get(0)?.id
                     forecast.temperature = it1.main?.temp?.toInt().toString() + " ℃"
-                    forecast.weatherDescription = it1.weatherList?.get(0)?.description
+                    forecast.weatherDescription = it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
                     forecast.time = it1.dtTxt?.getTime()
                     forecast.dayOfWeek = it1.dt?.getDayOfWeek()
                     forecastList.add(forecast)

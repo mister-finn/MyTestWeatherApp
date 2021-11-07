@@ -6,6 +6,7 @@ import com.misterfinn.mytestweatherapp.pojo.City
 import com.misterfinn.mytestweatherapp.pojo.Main
 import com.misterfinn.mytestweatherapp.pojo.TodayWeather
 import com.misterfinn.mytestweatherapp.pojo.Weather
+import com.misterfinn.mytestweatherapp.utils.makeFirstCharUpper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -24,7 +25,7 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
                 val todayWeather = TodayWeather()
                 val weather: Weather? = it.list?.get(0)?.weatherList?.get(0)
                 todayWeather.imageId = weather?.id ?: 200
-                todayWeather.weatherDescription = weather?.description
+                todayWeather.weatherDescription = weather?.description?.makeFirstCharUpper()
                 val main: Main? = it.list?.get(0)?.main
                 val temperature = main?.temp?.toInt().toString() + " ℃"
                 val pressure = main?.pressure.toString() + " hPa"

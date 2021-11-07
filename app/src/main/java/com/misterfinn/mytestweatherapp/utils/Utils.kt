@@ -14,3 +14,5 @@ fun Int.getDayOfWeek(): String {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     return sdf.format(date)
 }
+
+fun String.makeFirstCharUpper(): String = this[0].uppercase() + this.substring(1, this.length)
