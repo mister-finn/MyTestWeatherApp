@@ -9,5 +9,8 @@ data class Main(
     val temp: Double? = null,
     @SerializedName("pressure")
     @Expose
-    val pressure: Int? = null
+    val pressure: Int? = null,
+    @SerializedName("humidity")
+    @Expose
+    val humidity: Int? = null
 )

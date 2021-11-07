@@ -3,13 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable-anydpi/ic_clear_sky.xml" value="0.2912280701754386" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable-hdpi/ic_clear_cky_01.xml" value="0.259375" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable-ldpi/ic_clear_cky_01.xml" value="0.259375" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clear_sky.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clouds.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_gps.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_humidity.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_rainfall.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_weather_icons_01.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_wind_direction.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_wind_speed.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/activity_main.xml" value="0.3296875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/forecast_item.xml" value="0.3296875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/fragment_forecast.xml" value="0.3296875" />
-        <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/fragment_today_weather.xml" value="0.22" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/layout/fragment_today_weather.xml" value="0.33" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3458333333333333" />
       </map>
     </option>
   </component>
