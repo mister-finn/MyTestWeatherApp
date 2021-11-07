@@ -9,8 +9,13 @@ import com.misterfinn.mytestweatherapp.R
 import com.misterfinn.mytestweatherapp.databinding.ForecastItemBinding
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 
-class MainAdapter(private val list: ArrayList<ForecastItem>) :
+class MainAdapter() :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+    var list:ArrayList<ForecastItem> = ArrayList()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
             ForecastItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -52,8 +57,8 @@ class MainAdapter(private val list: ArrayList<ForecastItem>) :
                 binding.itemTextViewDayOfWeek.text = "TODAY"
 
             }
-            if(forecastItem.time=="00:00"){
-                Log.d("tesst","timeStamp = ${forecastItem.dayOfWeek}")
+            if (forecastItem.time == "00:00") {
+                Log.d("tesst", "timeStamp = ${forecastItem.dayOfWeek}")
                 binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
                 binding.itemTextViewDayOfWeek.text = forecastItem.dayOfWeek
 

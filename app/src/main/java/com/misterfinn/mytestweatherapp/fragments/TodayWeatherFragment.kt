@@ -1,8 +1,16 @@
 package com.misterfinn.mytestweatherapp.fragments
 
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.misterfinn.mytestweatherapp.R
 import com.misterfinn.mytestweatherapp.databinding.FragmentTodayWeatherBinding
@@ -11,7 +19,8 @@ import com.misterfinn.mytestweatherapp.presenter.MainContract
 import com.misterfinn.mytestweatherapp.presenter.TodayWeatherPresenter
 
 
-class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather), MainContract.TodayWeatherView{
+class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
+    MainContract.TodayWeatherView, LocationListener {
 
     private var binding: FragmentTodayWeatherBinding? = null
     private lateinit var presenter: TodayWeatherPresenter
@@ -21,6 +30,21 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather), MainCont
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTodayWeatherBinding.bind(view)
         presenter = TodayWeatherPresenter(this)
+        if (ContextCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        }
+
+        val locationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
     }
 
     override fun showTodayWeather(todayWeather: TodayWeather) {
@@ -57,8 +81,10 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather), MainCont
             binding?.textViewWindSpeed?.text = windSpeed
             binding?.textViewWindDirection?.text = windDirection
         }
+    }
 
-
+    override fun onLocationChanged(location: Location) {
+        presenter.setLocationData(location.latitude, location.longitude)
     }
 
     override fun onDestroyView() {

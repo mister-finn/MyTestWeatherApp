@@ -9,16 +9,14 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class ForecastPresenter(_mView: MainContract.ForecastView) : MainContract.Presenter {
+class ForecastPresenter(_mView: MainContract.ForecastView) :
+    MainContract.Presenter {
     private val compositeDisposable = CompositeDisposable()
     private val mView: MainContract.ForecastView = _mView
 
-    init {
-        loadForecast()
-    }
-
-    private fun loadForecast() {
-        val data = ApiFactory.apiService.loadData()
+    private fun loadForecast(lat: Double, lon: Double) {
+        Log.d("tesst","$lat $lon,loadForecast")
+        val data = ApiFactory.apiService.loadData(lat, lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -40,6 +38,10 @@ class ForecastPresenter(_mView: MainContract.ForecastView) : MainContract.Presen
                 Log.e("tesst", "${it.message}")
             })
         compositeDisposable.add(data)
+    }
+
+    override fun setLocationData(lat: Double, long: Double) {
+        loadForecast(lat, long)
     }
 
     override fun onDestroy() {

@@ -13,15 +13,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
-    private val mView: MainContract.TodayWeatherView
+    private val mView: MainContract.TodayWeatherView = _mView
 
-    init {
-        loadTodayWeather()
-        mView = _mView
-    }
 
-    private fun loadTodayWeather() {
-        val data = ApiFactory.apiService.loadData()
+    private fun loadTodayWeather(lat: Double, lon: Double) {
+        val data = ApiFactory.apiService.loadData(lat, lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -64,6 +60,10 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
                 Log.e("tesst", "${it.message}")
             })
         compositeDisposable.add(data)
+    }
+
+    override fun setLocationData(lat: Double, long: Double) {
+        loadTodayWeather(lat, long)
     }
 
     override fun onDestroy() {
