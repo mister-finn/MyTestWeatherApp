@@ -3,6 +3,7 @@ package com.misterfinn.mytestweatherapp.fragments
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -38,8 +39,10 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         ) {
             ActivityCompat.requestPermissions(
                 this.requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION),
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
                 1
             )
         }
@@ -87,6 +90,20 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
             binding?.textViewPressure?.text = pressure
             binding?.textViewWindSpeed?.text = windSpeed
             binding?.textViewWindDirection?.text = windDirection
+        }
+        binding?.textViewShare?.visibility = View.VISIBLE
+        binding?.textViewShare?.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            var result: String
+            with(todayWeather){
+                result = "Location:$cityAndCountry, temperature:$temperature, $weatherDescription, " +
+                        "rainfall:$rainfall, humidity:$humidity, pressure:$pressure, wind direction:" +
+                        "$windDirection, wind speed:$windSpeed"
+            }
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+            intent.putExtra(Intent.EXTRA_TEXT, result)
+            startActivity(Intent.createChooser(intent, getString(R.string.send_info_about_weather)))
         }
     }
 
