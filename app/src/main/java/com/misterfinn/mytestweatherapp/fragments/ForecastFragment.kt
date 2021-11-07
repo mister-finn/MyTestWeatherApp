@@ -41,6 +41,14 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 1
             )
+        } else {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                1
+            )
         }
 
         val locationManager =
@@ -50,6 +58,14 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
 
     override fun onLocationChanged(location: Location) {
         presenter.setLocationData(location.latitude,location.longitude)
+    }
+
+    override fun onProviderEnabled(provider: String) {
+
+    }
+
+    override fun onProviderDisabled(provider: String) {
+        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
     }
 
     override fun showToast() {

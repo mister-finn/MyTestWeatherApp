@@ -38,7 +38,8 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         ) {
             ActivityCompat.requestPermissions(
                 this.requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION),
                 1
             )
         }
@@ -46,6 +47,7 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+        binding?.textViewShare?.visibility = View.INVISIBLE
     }
 
     override fun showToast() {
@@ -91,6 +93,12 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
     override fun onLocationChanged(location: Location) {
         presenter.setLocationData(location.latitude, location.longitude)
     }
+
+    override fun onProviderDisabled(provider: String) {
+        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onProviderEnabled(provider: String) {}
 
     override fun onDestroyView() {
         binding = null
