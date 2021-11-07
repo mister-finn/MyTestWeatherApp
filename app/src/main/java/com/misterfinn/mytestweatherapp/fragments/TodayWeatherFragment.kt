@@ -9,6 +9,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -45,6 +46,10 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+    }
+
+    override fun showToast() {
+        Toast.makeText(this.context, "Check your Network connection", Toast.LENGTH_SHORT).show()
     }
 
     override fun showTodayWeather(todayWeather: TodayWeather) {

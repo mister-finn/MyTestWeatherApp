@@ -15,7 +15,7 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
     private val mView: MainContract.ForecastView = _mView
 
     private fun loadForecast(lat: Double, lon: Double) {
-        Log.d("tesst","$lat $lon,loadForecast")
+        Log.d("tesst", "$lat $lon,loadForecast")
         val data = ApiFactory.apiService.loadData(lat, lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -35,7 +35,20 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                 }
                 mView.showForecast(forecastList)
             }, {
-                Log.e("tesst", "${it.message}")
+                val forecastNoData = ForecastItem()
+                val noData = "No data"
+                with(forecastNoData) {
+                    imageId = 200
+                    temperature = noData
+                    weatherDescription = noData
+                    time = noData
+                }
+                val list = ArrayList<ForecastItem>()
+                for (i in 1..10) {
+                    list.add(forecastNoData)
+                }
+                mView.showForecast(list)
+                mView.showToast()
             })
         compositeDisposable.add(data)
     }

@@ -7,10 +7,12 @@ interface MainContract {
 
     interface TodayWeatherView {
         fun showTodayWeather(todayWeather: TodayWeather)
+        fun showToast()
     }
 
     interface ForecastView {
         fun showForecast(list: ArrayList<ForecastItem>)
+        fun showToast()
     }
 
     interface Presenter {

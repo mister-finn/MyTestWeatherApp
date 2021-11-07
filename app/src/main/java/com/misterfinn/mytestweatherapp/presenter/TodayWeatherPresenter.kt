@@ -23,7 +23,7 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
             .subscribe({
                 val todayWeather = TodayWeather()
                 val weather: Weather? = it.list?.get(0)?.weatherList?.get(0)
-                todayWeather.imageId = weather?.id ?: 0
+                todayWeather.imageId = weather?.id ?: 200
                 todayWeather.weatherDescription = weather?.description
                 val main: Main? = it.list?.get(0)?.main
                 val temperature = main?.temp?.toInt().toString() + " ℃"
@@ -57,7 +57,21 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
                 mView.showTodayWeather(todayWeather)
 
             }, {
-                Log.e("tesst", "${it.message}")
+                val noDataToday = TodayWeather()
+                val noData = "No data"
+                with(noDataToday) {
+                    imageId = 200
+                    cityAndCountry = noData
+                    temperature = noData
+                    weatherDescription = noData
+                    humidity = noData
+                    rainfall = noData
+                    pressure = noData
+                    windSpeed = noData
+                    windDirection = noData
+                }
+                mView.showToast()
+                mView.showTodayWeather(noDataToday)
             })
         compositeDisposable.add(data)
     }

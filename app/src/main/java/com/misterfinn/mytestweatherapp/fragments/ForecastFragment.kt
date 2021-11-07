@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,6 +52,9 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
         presenter.setLocationData(location.latitude,location.longitude)
     }
 
+    override fun showToast() {
+        Toast.makeText(this.context, "Check your Network connection", Toast.LENGTH_SHORT).show()
+    }
 
     override fun showForecast(list: ArrayList<ForecastItem>) {
         val adapter = MainAdapter()
