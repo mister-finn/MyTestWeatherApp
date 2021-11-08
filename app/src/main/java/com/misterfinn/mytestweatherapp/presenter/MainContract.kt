@@ -13,6 +13,7 @@ interface MainContract {
     interface ForecastView {
         fun showForecast(list: ArrayList<ForecastItem>)
         fun showToast()
+        fun showCity(city:String?)
     }
 
     interface Presenter {

@@ -12,10 +12,6 @@ import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 class MainAdapter() :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     var list:ArrayList<ForecastItem> = ArrayList()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
             ForecastItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -54,7 +50,7 @@ class MainAdapter() :
             binding.itemTextViewDayOfWeek.visibility = View.GONE
             if (position == 0) {
                 binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
-                binding.itemTextViewDayOfWeek.text = "TODAY"
+                binding.itemTextViewDayOfWeek.setText(R.string.today)
 
             }
             if (forecastItem.time == "00:00") {

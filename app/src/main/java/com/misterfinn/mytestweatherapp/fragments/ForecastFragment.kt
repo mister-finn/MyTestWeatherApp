@@ -72,6 +72,10 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
         Toast.makeText(this.context, "Check your Network connection", Toast.LENGTH_SHORT).show()
     }
 
+    override fun showCity(city: String?) {
+        binding?.textViewCity?.text = city
+    }
+
     override fun showForecast(list: ArrayList<ForecastItem>) {
         val adapter = MainAdapter()
         adapter.list = list

@@ -2,4 +2,5 @@
     <string name="app_name">My Test Weather App</string>
     <string name="share_subject">Share subject</string>
     <string name="send_info_about_weather">Send weather info</string>
+    <string name="today">TODAY</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.misterfinn.mytestweatherapp.presenter
 
-import android.util.Log
 import com.misterfinn.mytestweatherapp.api.ApiFactory
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 import com.misterfinn.mytestweatherapp.utils.getDayOfWeek
@@ -16,7 +15,6 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
     private val mView: MainContract.ForecastView = _mView
 
     private fun loadForecast(lat: Double, lon: Double) {
-        Log.d("tesst", "$lat $lon,loadForecast")
         val data = ApiFactory.apiService.loadData(lat, lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -34,7 +32,9 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                     forecast.dayOfWeek = it1.dt?.getDayOfWeek()
                     forecastList.add(forecast)
                 }
+                val city = it.city?.name
                 mView.showForecast(forecastList)
+                mView.showCity(city)
             }, {
                 val forecastNoData = ForecastItem()
                 val noData = "No data"
