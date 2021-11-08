@@ -77,9 +77,9 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
     }
 
     override fun showForecast(list: ArrayList<ForecastItem>) {
-        val adapter = MainAdapter()
-        adapter.list = list
+        val adapter = MainAdapter(list)
         binding?.recyclerView?.adapter = adapter
+        presenter.onDestroy()
     }
 
     override fun onDestroyView() {

@@ -1,5 +1,6 @@
 package com.misterfinn.mytestweatherapp.presenter
 
+import android.util.Log
 import com.misterfinn.mytestweatherapp.api.ApiFactory
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 import com.misterfinn.mytestweatherapp.utils.getDayOfWeek
@@ -19,6 +20,7 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                Log.d("loadForecast", "loading")
                 val forecastList = ArrayList<ForecastItem>()
                 val list = it.list
                 list?.map { it1 ->
@@ -27,7 +29,8 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                     forecast.isDay = isDay == "d"
                     forecast.imageId = it1.weatherList?.get(0)?.id
                     forecast.temperature = it1.main?.temp?.toInt().toString() + " ℃"
-                    forecast.weatherDescription = it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
+                    forecast.weatherDescription =
+                        it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
                     forecast.time = it1.dtTxt?.getTime()
                     forecast.dayOfWeek = it1.dt?.getDayOfWeek()
                     forecastList.add(forecast)
