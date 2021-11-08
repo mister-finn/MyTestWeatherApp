@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:contentDescription="@string/image_of_weather"
             android:id="@+id/itemImageViewWeather"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -25,9 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="- C"
+            android:textColor="@color/green"
             android:textSize="34sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,8 +35,8 @@
             android:id="@+id/itemTextViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
-            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/itemImageViewWeather"
             app:layout_constraintTop_toTopOf="@+id/itemTextViewTemperature" />
 
@@ -45,8 +44,8 @@
             android:id="@+id/itemTextViewWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weather description"
-            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/itemTextViewTemperature"
             app:layout_constraintStart_toEndOf="@+id/itemImageViewWeather"
             app:layout_constraintTop_toBottomOf="@+id/itemTextViewTime" />
@@ -55,7 +54,7 @@
             android:id="@+id/itemTextViewDayOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Day of Week"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/itemImageViewWeather"

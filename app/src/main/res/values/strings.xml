@@ -4,4 +4,12 @@
     <string name="send_info_about_weather">Send weather info</string>
     <string name="today">TODAY</string>
     <string name="forecast">Forecast</string>
+    <string name="image_of_weather">Image of weather</string>
+    <string name="gps_image">gps image</string>
+    <string name="humidity_image">humidity image</string>
+    <string name="rainfall_image">rainfall image</string>
+    <string name="pressure_image">pressure image</string>
+    <string name="wind_speed_image">wind speed image</string>
+    <string name="wind_direction_image">wind direction image</string>
+    <string name="share">Share</string>
 </resources>
