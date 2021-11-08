@@ -7,11 +7,21 @@
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable-hdpi/ic_clear_cky_01.xml" value="0.259375" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable-ldpi/ic_clear_cky_01.xml" value="0.259375" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clear_sky.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clear_sky_day.xml" value="0.51875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clear_sky_night.xml" value="0.51875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_clouds.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_few_clouds_day.xml" value="0.51875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_few_clouds_night.xml" value="0.51875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_gps.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_humidity.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.51875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_mist.xml" value="0.51875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_rain.xml" value="0.51875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_rainfall.xml" value="0.3458333333333333" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_shower_rain.xml" value="0.51875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_snow.xml" value="0.51875" />
+        <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_thunderstorm.xml" value="0.51875" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_weather_icons_01.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_wind_direction.xml" value="0.3458333333333333" />
         <entry key="..\:/MyTestWeatherApp/app/src/main/res/drawable/ic_wind_speed.xml" value="0.3458333333333333" />

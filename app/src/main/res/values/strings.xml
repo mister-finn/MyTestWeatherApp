@@ -3,4 +3,5 @@
     <string name="share_subject">Share subject</string>
     <string name="send_info_about_weather">Send weather info</string>
     <string name="today">TODAY</string>
+    <string name="forecast">Forecast</string>
 </resources>
