@@ -11,14 +11,21 @@ import com.misterfinn.mytestweatherapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var todayFragment: TodayWeatherFragment
+    private lateinit var forecastFragment: ForecastFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val todayFragment = TodayWeatherFragment()
-        val forecastFragment = ForecastFragment()
+        todayFragment = TodayWeatherFragment()
+        forecastFragment = ForecastFragment()
+
+
+    }
+
+    override fun onResume() {
         setCurrentFragment(todayFragment)
-        binding.bottomNavigationView.setOnItemSelectedListener {
+        binding.bottomNavigationView?.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.todayMenuItem -> {
                     setCurrentFragment(todayFragment)
@@ -29,13 +36,15 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+        super.onResume()
     }
-
 
     private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentsContainer, fragment)
-            commit()
+            if (binding.fragmentsContainer?.id != null) {
+                replace(binding.fragmentsContainer!!.id, fragment)
+                commit()
+            }
         }
     }
 }
