@@ -4,6 +4,7 @@ package com.misterfinn.mytestweatherapp.fragments
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -26,12 +27,17 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
 
     private var binding: FragmentTodayWeatherBinding? = null
     private lateinit var presenter: TodayWeatherPresenter
+    private val appPreferencesLatitude = "Latitude"
+    private val appPreferencesLongitude = "Longitude"
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTodayWeatherBinding.bind(view)
         presenter = TodayWeatherPresenter(this)
+        sharedPreferences = requireActivity().getSharedPreferences("location", Context.MODE_PRIVATE)
+        getLocationFromCash()
         if (ContextCompat.checkSelfPermission(
                 this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -62,14 +68,21 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
     }
 
     override fun onLocationChanged(location: Location) {
+        val latitude = location.latitude.toFloat()
+        val longitude = location.longitude.toFloat()
+        sharedPreferences.edit().putFloat(appPreferencesLatitude, latitude).apply()
+        sharedPreferences.edit().putFloat(appPreferencesLongitude, longitude).apply()
         presenter.setLocationData(location.latitude, location.longitude)
     }
 
     override fun onProviderDisabled(provider: String) {
-        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+        if (this.context != null) {
+            Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    override fun onProviderEnabled(provider: String) {}
+    override fun onProviderEnabled(provider: String) {
+    }
 
     private fun bindingFragment(todayWeather: TodayWeather) {
         setImages(todayWeather)
@@ -128,6 +141,17 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
         intent.putExtra(Intent.EXTRA_TEXT, result)
         startActivity(Intent.createChooser(intent, getString(R.string.send_info_about_weather)))
+    }
+
+    private fun getLocationFromCash() {
+        if (sharedPreferences.contains(appPreferencesLongitude) && sharedPreferences.contains(
+                appPreferencesLatitude
+            )
+        ) {
+            val longitude = sharedPreferences.getFloat(appPreferencesLongitude, 0.0f).toDouble()
+            val latitude = sharedPreferences.getFloat(appPreferencesLatitude, 0.0f).toDouble()
+            presenter.setLocationData(latitude, longitude)
+        }
     }
 
     override fun onDestroyView() {

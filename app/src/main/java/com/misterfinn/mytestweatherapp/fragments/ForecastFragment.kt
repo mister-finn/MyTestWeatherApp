@@ -2,6 +2,7 @@ package com.misterfinn.mytestweatherapp.fragments
 
 import android.Manifest
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -25,12 +26,17 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
     LocationListener {
     private var binding: FragmentForecastBinding? = null
     private lateinit var presenter: ForecastPresenter
+    private lateinit var sharedPreferences: SharedPreferences
+    private val appPreferencesLatitude = "Latitude"
+    private val appPreferencesLongitude = "Longitude"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentForecastBinding.bind(view)
         binding?.recyclerView?.layoutManager = LinearLayoutManager(activity?.applicationContext)
         presenter = ForecastPresenter(this)
+        sharedPreferences = requireActivity().getSharedPreferences("location", Context.MODE_PRIVATE)
+        getLocationFromCash()
         if (ContextCompat.checkSelfPermission(
                 this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -57,7 +63,11 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
     }
 
     override fun onLocationChanged(location: Location) {
-        presenter.setLocationData(location.latitude,location.longitude)
+        val latitude = location.latitude.toFloat()
+        val longitude = location.longitude.toFloat()
+        sharedPreferences.edit().putFloat(appPreferencesLatitude, latitude).apply()
+        sharedPreferences.edit().putFloat(appPreferencesLongitude, longitude).apply()
+        presenter.setLocationData(location.latitude, location.longitude)
     }
 
     override fun onProviderEnabled(provider: String) {
@@ -65,7 +75,9 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
     }
 
     override fun onProviderDisabled(provider: String) {
-        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+        if (this.context != null) {
+            Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun showToast() {
@@ -80,6 +92,17 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
         val adapter = MainAdapter(list)
         binding?.recyclerView?.adapter = adapter
         presenter.onDestroy()
+    }
+
+    private fun getLocationFromCash() {
+        if (sharedPreferences.contains(appPreferencesLongitude) && sharedPreferences.contains(
+                appPreferencesLatitude
+            )
+        ) {
+            val longitude = sharedPreferences.getFloat(appPreferencesLongitude, 0.0f).toDouble()
+            val latitude = sharedPreferences.getFloat(appPreferencesLatitude, 0.0f).toDouble()
+            presenter.setLocationData(latitude, longitude)
+        }
     }
 
     override fun onDestroyView() {

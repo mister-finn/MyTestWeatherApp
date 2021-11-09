@@ -19,11 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         todayFragment = TodayWeatherFragment()
         forecastFragment = ForecastFragment()
-
-
-    }
-
-    override fun onResume() {
         setCurrentFragment(todayFragment)
         binding.bottomNavigationView?.setOnItemSelectedListener {
             when (it.itemId) {
@@ -36,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
-        super.onResume()
     }
 
     private fun setCurrentFragment(fragment: Fragment) {
