@@ -24,10 +24,12 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                 val city = it.city?.name
                 mView.showForecast(forecastList)
                 mView.showCity(city)
+                mView.removeProgressBar()
             }, {
                 val list = createForecastWithNoData()
                 mView.showForecast(list)
                 mView.showToast()
+                mView.removeProgressBar()
             })
         compositeDisposable.add(data)
     }

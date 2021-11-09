@@ -8,12 +8,14 @@ interface MainContract {
     interface TodayWeatherView {
         fun showTodayWeather(todayWeather: TodayWeather)
         fun showToast()
+        fun removeProgressBar()
     }
 
     interface ForecastView {
         fun showForecast(list: ArrayList<ForecastItem>)
         fun showToast()
         fun showCity(city:String?)
+        fun removeProgressBar()
     }
 
     interface Presenter {

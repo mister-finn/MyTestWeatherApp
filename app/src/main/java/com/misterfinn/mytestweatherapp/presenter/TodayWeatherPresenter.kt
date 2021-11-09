@@ -20,10 +20,12 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
             .subscribe({
                 val todayWeather = createTodayWeather(it)
                 mView.showTodayWeather(todayWeather)
+                mView.removeProgressBar()
             }, {
                 val noDataToday = createNoDataToday()
                 mView.showToast()
                 mView.showTodayWeather(noDataToday)
+                mView.removeProgressBar()
             })
         compositeDisposable.add(data)
     }

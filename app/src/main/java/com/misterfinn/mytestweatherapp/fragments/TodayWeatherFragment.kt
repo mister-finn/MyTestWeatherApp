@@ -57,6 +57,11 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
         binding?.textViewShare?.visibility = View.INVISIBLE
+        binding?.progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun removeProgressBar() {
+        binding?.progressBar?.visibility = View.GONE
     }
 
     override fun showToast() {
