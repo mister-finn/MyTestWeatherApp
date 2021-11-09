@@ -1,8 +1,8 @@
 package com.misterfinn.mytestweatherapp.presenter
 
-import android.util.Log
 import com.misterfinn.mytestweatherapp.api.ApiFactory
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
+import com.misterfinn.mytestweatherapp.pojo.Responce
 import com.misterfinn.mytestweatherapp.utils.getDayOfWeek
 import com.misterfinn.mytestweatherapp.utils.getTime
 import com.misterfinn.mytestweatherapp.utils.makeFirstCharUpper
@@ -20,37 +20,12 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.d("loadForecast", "loading")
-                val forecastList = ArrayList<ForecastItem>()
-                val list = it.list
-                list?.map { it1 ->
-                    val forecast = ForecastItem()
-                    val isDay = it1.sys?.pod
-                    forecast.isDay = isDay == "d"
-                    forecast.imageId = it1.weatherList?.get(0)?.id
-                    forecast.temperature = it1.main?.temp?.toInt().toString() + " ℃"
-                    forecast.weatherDescription =
-                        it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
-                    forecast.time = it1.dtTxt?.getTime()
-                    forecast.dayOfWeek = it1.dt?.getDayOfWeek()
-                    forecastList.add(forecast)
-                }
+                val forecastList = createForecastList(it)
                 val city = it.city?.name
                 mView.showForecast(forecastList)
                 mView.showCity(city)
             }, {
-                val forecastNoData = ForecastItem()
-                val noData = "No data"
-                with(forecastNoData) {
-                    imageId = 200
-                    temperature = noData
-                    weatherDescription = noData
-                    time = noData
-                }
-                val list = ArrayList<ForecastItem>()
-                for (i in 1..10) {
-                    list.add(forecastNoData)
-                }
+                val list = createForecastWithNoData()
                 mView.showForecast(list)
                 mView.showToast()
             })
@@ -63,5 +38,39 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
 
     override fun onDestroy() {
         compositeDisposable.dispose()
+    }
+
+    private fun createForecastList(responce: Responce): ArrayList<ForecastItem> {
+        val forecastList = ArrayList<ForecastItem>()
+        val list = responce.list
+        list?.map { it1 ->
+            val forecast = ForecastItem()
+            val isDay = it1.sys?.pod
+            forecast.isDay = isDay == "d"
+            forecast.imageId = it1.weatherList?.get(0)?.id
+            forecast.temperature = it1.main?.temp?.toInt().toString() + " ?"
+            forecast.weatherDescription =
+                it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
+            forecast.time = it1.dtTxt?.getTime()
+            forecast.dayOfWeek = it1.dt?.getDayOfWeek()
+            forecastList.add(forecast)
+        }
+        return forecastList
+    }
+
+    private fun createForecastWithNoData(): ArrayList<ForecastItem> {
+        val forecastNoData = ForecastItem()
+        val noData = "No data"
+        with(forecastNoData) {
+            imageId = 200
+            temperature = noData
+            weatherDescription = noData
+            time = noData
+        }
+        val list = ArrayList<ForecastItem>()
+        for (i in 1..10) {
+            list.add(forecastNoData)
+        }
+        return list
     }
 }

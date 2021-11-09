@@ -58,6 +58,38 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
     }
 
     override fun showTodayWeather(todayWeather: TodayWeather) {
+        bindingFragment(todayWeather)
+    }
+
+    override fun onLocationChanged(location: Location) {
+        presenter.setLocationData(location.latitude, location.longitude)
+    }
+
+    override fun onProviderDisabled(provider: String) {
+        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onProviderEnabled(provider: String) {}
+
+    private fun bindingFragment(todayWeather: TodayWeather) {
+        setImages(todayWeather)
+        with(todayWeather) {
+            binding?.textViewCity?.text = cityAndCountry
+            binding?.textViewTemperature?.text = temperature
+            binding?.textViewWeatherDescription?.text = weatherDescription
+            binding?.textViewHumidity?.text = humidity
+            binding?.textViewRainfall?.text = rainfall
+            binding?.textViewPressure?.text = pressure
+            binding?.textViewWindSpeed?.text = windSpeed
+            binding?.textViewWindDirection?.text = windDirection
+        }
+        binding?.textViewShare?.visibility = View.VISIBLE
+        binding?.textViewShare?.setOnClickListener {
+            createIntent(todayWeather)
+        }
+    }
+
+    private fun setImages(todayWeather: TodayWeather) {
         when (todayWeather.imageId) {
             in 200..232 -> binding?.imageViewWeather?.setImageResource(R.drawable.ic_thunderstorm)
             in 300..321 -> binding?.imageViewWeather?.setImageResource(R.drawable.ic_shower_rain)
@@ -81,41 +113,22 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
             802, 803, 804 -> binding?.imageViewWeather?.setImageResource(R.drawable.ic_clouds)
             else -> binding?.imageViewWeather?.setImageResource(R.drawable.ic_wind_direction)
         }
+    }
+
+    private fun createIntent(todayWeather: TodayWeather) {
+        val intent = Intent(Intent.ACTION_SEND)
+        var result: String
         with(todayWeather) {
-            binding?.textViewCity?.text = cityAndCountry
-            binding?.textViewTemperature?.text = temperature
-            binding?.textViewWeatherDescription?.text = weatherDescription
-            binding?.textViewHumidity?.text = humidity
-            binding?.textViewRainfall?.text = rainfall
-            binding?.textViewPressure?.text = pressure
-            binding?.textViewWindSpeed?.text = windSpeed
-            binding?.textViewWindDirection?.text = windDirection
-        }
-        binding?.textViewShare?.visibility = View.VISIBLE
-        binding?.textViewShare?.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            var result: String
-            with(todayWeather){
-                result = "Location:$cityAndCountry, temperature:$temperature, $weatherDescription, " +
+            result =
+                "Location:$cityAndCountry, temperature:$temperature, $weatherDescription, " +
                         "rainfall:$rainfall, humidity:$humidity, pressure:$pressure, wind direction:" +
                         "$windDirection, wind speed:$windSpeed"
-            }
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
-            intent.putExtra(Intent.EXTRA_TEXT, result)
-            startActivity(Intent.createChooser(intent, getString(R.string.send_info_about_weather)))
         }
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+        intent.putExtra(Intent.EXTRA_TEXT, result)
+        startActivity(Intent.createChooser(intent, getString(R.string.send_info_about_weather)))
     }
-
-    override fun onLocationChanged(location: Location) {
-        presenter.setLocationData(location.latitude, location.longitude)
-    }
-
-    override fun onProviderDisabled(provider: String) {
-        Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onProviderEnabled(provider: String) {}
 
     override fun onDestroyView() {
         binding = null
