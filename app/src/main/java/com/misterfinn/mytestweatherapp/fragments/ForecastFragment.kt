@@ -59,7 +59,7 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0f, this)
         binding?.forecastProgressBar?.visibility = View.VISIBLE
     }
 
@@ -79,6 +79,7 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
         if (this.context != null) {
             Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
         }
+        getLocationFromCash()
     }
 
     override fun removeProgressBar() {

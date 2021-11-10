@@ -55,7 +55,7 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0f, this)
         binding?.textViewShare?.visibility = View.INVISIBLE
         binding?.progressBar?.visibility = View.VISIBLE
     }
@@ -84,6 +84,7 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
         if (this.context != null) {
             Toast.makeText(this.context, "Check your location settings!", Toast.LENGTH_SHORT).show()
         }
+        getLocationFromCash()
     }
 
     override fun onProviderEnabled(provider: String) {
