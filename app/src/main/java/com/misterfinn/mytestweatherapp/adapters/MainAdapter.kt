@@ -1,6 +1,6 @@
 package com.misterfinn.mytestweatherapp.adapters
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.misterfinn.mytestweatherapp.R
 import com.misterfinn.mytestweatherapp.databinding.ForecastItemBinding
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 
-class MainAdapter(val list: ArrayList<ForecastItem>) :
+class MainAdapter(private val list: ArrayList<ForecastItem>) :
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding =
@@ -18,6 +18,28 @@ class MainAdapter(val list: ArrayList<ForecastItem>) :
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        setImages(holder, position)
+        with(holder) {
+            val forecastItem = list[position]
+            binding.itemTextViewTemperature.text = forecastItem.temperature
+            binding.itemTextViewTime.text = forecastItem.time
+            binding.itemTextViewWeather.text = forecastItem.weatherDescription
+            binding.itemTextViewDayOfWeek.visibility = View.GONE
+            if (position == 0) {
+                binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
+                binding.itemTextViewDayOfWeek.setText(R.string.today)
+
+            }
+            if (forecastItem.time == "00:00" && position != 0) {
+                binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
+                binding.itemTextViewDayOfWeek.text = forecastItem.dayOfWeek
+
+            }
+        }
+    }
+
+
+    private fun setImages(holder: MainViewHolder, position: Int) {
         with(holder) {
             val forecastItem = list[position]
             when (forecastItem.imageId) {
@@ -42,21 +64,6 @@ class MainAdapter(val list: ArrayList<ForecastItem>) :
                 }
                 802, 803, 804 -> binding.itemImageViewWeather.setImageResource(R.drawable.ic_clouds)
                 else -> binding.itemImageViewWeather.setImageResource(R.drawable.ic_wind_direction)
-            }
-            binding.itemTextViewTemperature.text = forecastItem.temperature
-            binding.itemTextViewTime.text = forecastItem.time
-            binding.itemTextViewWeather.text = forecastItem.weatherDescription
-            binding.itemTextViewDayOfWeek.visibility = View.GONE
-            if (position == 0) {
-                binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
-                binding.itemTextViewDayOfWeek.setText(R.string.today)
-
-            }
-            if (forecastItem.time == "00:00" && position != 0) {
-                Log.d("tesst", "timeStamp = ${forecastItem.dayOfWeek}")
-                binding.itemTextViewDayOfWeek.visibility = View.VISIBLE
-                binding.itemTextViewDayOfWeek.text = forecastItem.dayOfWeek
-
             }
         }
     }

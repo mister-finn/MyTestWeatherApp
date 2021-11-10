@@ -1,5 +1,6 @@
 package com.misterfinn.mytestweatherapp.presenter
 
+import android.util.Log
 import com.misterfinn.mytestweatherapp.api.ApiFactory
 import com.misterfinn.mytestweatherapp.pojo.ForecastItem
 import com.misterfinn.mytestweatherapp.pojo.Responce
@@ -27,6 +28,8 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
                 mView.removeProgressBar()
             }, {
                 val list = createForecastWithNoData()
+                val noData = "No data"
+                mView.showCity(noData)
                 mView.showForecast(list)
                 mView.showToast()
                 mView.removeProgressBar()
