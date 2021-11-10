@@ -33,5 +33,8 @@ data class ListInfo(
     val dtTxt: String? = null,
     @SerializedName("rain")
     @Expose
-    val rain: Rain? = null
+    val rain: Rain? = null,
+    @SerializedName("snow")
+    @Expose
+    val snow:Snow? = null
 )

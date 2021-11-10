@@ -38,7 +38,7 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
         compositeDisposable.dispose()
     }
 
-    private fun createTodayWeather(responce: Responce):TodayWeather{
+    private fun createTodayWeather(responce: Responce): TodayWeather {
         val todayWeather = TodayWeather()
         val weather: Weather? = responce.list?.get(0)?.weatherList?.get(0)
         val main: Main? = responce.list?.get(0)?.main
@@ -47,7 +47,7 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
         val humidity = main?.humidity.toString() + " %"
         val city: City? = responce.city
         val cityAndCountry = "${city?.name}, ${city?.country}"
-        val rainFall = responce.list?.get(0)?.rain?.rainfall.toString()
+        val rainFall = getFalls(responce.list?.get(0))
         val windSpeed = responce.list?.get(0)?.wind?.speed.toString()
         val isDay = responce.list?.get(0)?.sys?.pod
 
@@ -57,14 +57,27 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
         todayWeather.pressure = pressure
         todayWeather.humidity = humidity
         todayWeather.cityAndCountry = cityAndCountry
-        todayWeather.rainfall = "$rainFall mm"
+        todayWeather.rainfall = rainFall
         todayWeather.windSpeed = "$windSpeed m/s"
         todayWeather.windDirection = getWindDirection(responce.list?.get(0)?.wind?.deg)
         todayWeather.isDay = isDay == "d"
         return todayWeather
     }
 
-    private fun getWindDirection(degree:Int?):String{
+    private fun getFalls(listInfo: ListInfo?): String {
+        val rain = listInfo?.rain
+        val snow = listInfo?.snow
+        if (rain != null) {
+            return rain.rainfall.toString() + "mm"
+        } else {
+            if (snow != null) {
+                return snow.snowfall.toString() + "mm"
+            }
+        }
+        return "NaN"
+    }
+
+    private fun getWindDirection(degree: Int?): String {
         return when (degree) {
             in 0..15 -> "N"
             in 16..75 -> "NE"
@@ -79,7 +92,7 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
         }
     }
 
-    private fun createNoDataToday():TodayWeather{
+    private fun createNoDataToday(): TodayWeather {
         val noDataToday = TodayWeather()
         val noData = "No data"
         with(noDataToday) {
