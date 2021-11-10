@@ -50,7 +50,7 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
             val isDay = it1.sys?.pod
             forecast.isDay = isDay == "d"
             forecast.imageId = it1.weatherList?.get(0)?.id
-            forecast.temperature = it1.main?.temp?.toInt().toString() + " ?"
+            forecast.temperature = it1.main?.temp?.toInt().toString() + " ℃"
             forecast.weatherDescription =
                 it1.weatherList?.get(0)?.description?.makeFirstCharUpper()
             forecast.time = it1.dtTxt?.getTime()

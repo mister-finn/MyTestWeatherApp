@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
         <ImageView
-            android:contentDescription="@string/image_of_weather"
             android:id="@+id/itemImageViewWeather"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/image_of_weather"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemTextViewDayOfWeek"
             app:srcCompat="@drawable/ic_clear_sky_day" />
 
         <TextView
@@ -25,41 +30,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/green"
-            android:textSize="34sp"
+            android:fontFamily="@font/pt_sans"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/itemImageViewWeather"
+            tool:text="20 C" />
 
         <TextView
             android:id="@+id/itemTextViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/pt_sans"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/itemImageViewWeather"
-            app:layout_constraintTop_toTopOf="@+id/itemTextViewTemperature" />
+            app:layout_constraintTop_toTopOf="@+id/itemTextViewTemperature"
+            tool:text="15:00" />
 
         <TextView
             android:id="@+id/itemTextViewWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_margin="4dp"
+            android:fontFamily="@font/pt_sans"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/itemTextViewTemperature"
             app:layout_constraintStart_toEndOf="@+id/itemImageViewWeather"
-            app:layout_constraintTop_toBottomOf="@+id/itemTextViewTime" />
+            tool:text="Sunny" />
 
         <TextView
             android:id="@+id/itemTextViewDayOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/pt_sans"
+            android:textColor="@color/white"
+            android:textSize="28sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/itemImageViewWeather"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="Sunday" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -11,5 +11,5 @@
     <string name="pressure_image">pressure image</string>
     <string name="wind_speed_image">wind speed image</string>
     <string name="wind_direction_image">wind direction image</string>
-    <string name="share">Share</string>
+    <string name="share">SHARE</string>
 </resources>
