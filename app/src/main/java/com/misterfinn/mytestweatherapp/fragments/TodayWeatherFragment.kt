@@ -10,6 +10,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -55,7 +56,7 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, this)
         binding?.textViewShare?.visibility = View.INVISIBLE
         binding?.progressBar?.visibility = View.VISIBLE
     }

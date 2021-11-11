@@ -11,6 +11,8 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
 
     private val compositeDisposable = CompositeDisposable()
     private val mView: MainContract.TodayWeatherView = _mView
+    private var latitude = 0.0
+    private var longitude = 0.0
 
 
     private fun loadTodayWeather(lat: Double, lon: Double) {
@@ -31,7 +33,11 @@ class TodayWeatherPresenter(_mView: MainContract.TodayWeatherView) : MainContrac
     }
 
     override fun setLocationData(lat: Double, long: Double) {
-        loadTodayWeather(lat, long)
+        if (lat != latitude && long != longitude) {
+            loadTodayWeather(lat, long)
+            longitude = long
+            latitude = lat
+        }
     }
 
     override fun onDestroy() {

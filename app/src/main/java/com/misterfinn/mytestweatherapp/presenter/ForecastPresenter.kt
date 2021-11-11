@@ -15,6 +15,8 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
     MainContract.Presenter {
     private val compositeDisposable = CompositeDisposable()
     private val mView: MainContract.ForecastView = _mView
+    private var latitude = 0.0
+    private var longitude = 0.0
 
     private fun loadForecast(lat: Double, lon: Double) {
         val data = ApiFactory.apiService.loadData(lat, lon)
@@ -38,7 +40,11 @@ class ForecastPresenter(_mView: MainContract.ForecastView) :
     }
 
     override fun setLocationData(lat: Double, long: Double) {
-        loadForecast(lat, long)
+        if (lat != latitude && long != longitude) {
+            loadForecast(lat, long)
+            longitude = long
+            latitude = lat
+        }
     }
 
     override fun onDestroy() {

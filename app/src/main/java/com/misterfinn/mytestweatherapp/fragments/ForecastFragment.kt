@@ -59,7 +59,7 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, this)
         binding?.forecastProgressBar?.visibility = View.VISIBLE
     }
 
@@ -97,7 +97,6 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
     override fun showForecast(list: ArrayList<ForecastItem>) {
         val adapter = MainAdapter(list)
         binding?.recyclerView?.adapter = adapter
-        presenter.onDestroy()
     }
 
     private fun getLocationFromCash() {
