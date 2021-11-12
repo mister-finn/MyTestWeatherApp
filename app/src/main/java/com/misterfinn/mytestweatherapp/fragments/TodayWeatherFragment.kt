@@ -56,6 +56,10 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather),
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        if(lastKnownLocation!=null){
+            presenter.setLocationData(lastKnownLocation.latitude,lastKnownLocation.longitude)
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, this)
         binding?.textViewShare?.visibility = View.INVISIBLE
         binding?.progressBar?.visibility = View.VISIBLE

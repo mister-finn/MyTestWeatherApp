@@ -47,18 +47,14 @@ class ForecastFragment : Fragment(R.layout.fragment_forecast), MainContract.Fore
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 1
             )
-        } else {
-            ActivityCompat.requestPermissions(
-                this.requireActivity(), arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                1
-            )
         }
 
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        if(lastKnownLocation!=null){
+            presenter.setLocationData(lastKnownLocation.latitude,lastKnownLocation.longitude)
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, this)
         binding?.forecastProgressBar?.visibility = View.VISIBLE
     }
